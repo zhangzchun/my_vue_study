@@ -20,6 +20,11 @@
 
             }
         },
+        provide () {
+          return {
+              foo:"foooooooooo"
+          }
+        },
         components: {
             Child1, Child2
         },
