@@ -2,7 +2,8 @@
     <div id="app">
         <img alt="Vue logo" src="./assets/logo.png">
         <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
-        <communication></communication>
+        <!--<communication></communication>-->
+         <slot-example></slot-example>
     </div>
 
 </template>
@@ -10,12 +11,14 @@
 <script>
     import HelloWorld from './components/HelloWorld.vue'
     import communication from '@/components/communication';
+    import SlotExample from '@/components/slots';
 
     export default {
         name: 'App',
         components: {
             HelloWorld,
-            communication
+            communication,
+            SlotExample
         }
     }
 </script>
