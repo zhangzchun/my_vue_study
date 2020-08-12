@@ -20,7 +20,11 @@
             },
         },
         mounted () {
-            this.$bus.$on('event-from-child2', msg => {
+            // 用 bus 监听事件。
+            /*this.$bus.$on('event-from-child2', msg => {
+              console.log('Child1:', msg);
+            });*/
+            this.$parent.$on('event-from-child2', msg => {
               console.log('Child1:', msg);
             });
         }
