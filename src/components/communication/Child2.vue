@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- -->
+        <!-- $listeners会被展开并监听 -->
         <h3 v-on="$listeners">child2</h3>
         <button @click="sendToChild1">给child1发送消息</button>
         <!-- props 未声明 -->
