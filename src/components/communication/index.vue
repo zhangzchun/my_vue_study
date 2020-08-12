@@ -4,7 +4,7 @@
         <!-- props, 自定义事件 -->
         <Child1 msg="some msg from parent" @some-event="onSomeEvent"></Child1>
         <!-- 事件总线 -->
-        <Child2 msg="some msg from parent"></Child2>
+        <Child2 msg="some msg from parent" @click="onClick"></Child2>
         <button @click="goHome"> 回家吃饭 </button>
     </div>
 </template>
@@ -30,6 +30,9 @@
             goHome () {
                 //
                 this.$children[0].eat()
+            },
+            onClick () {
+                console.log('来自老爹的回调函数处理', this);
             }
         },
     }
