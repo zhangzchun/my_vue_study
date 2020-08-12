@@ -4,7 +4,8 @@
         <!-- props, 自定义事件 -->
         <Child1 msg="some msg from parent" @some-event="onSomeEvent"></Child1>
         <!-- 事件总线 -->
-        <Child2></Child2>
+        <Child2 msg="some msg from parent"></Child2>
+        <button @click="goHome"> 回家吃饭 </button>
     </div>
 </template>
 
@@ -14,12 +15,21 @@
     
     export default {
         name: "index",
+        data () {
+            return {
+
+            }
+        },
         components: {
             Child1, Child2
         },
         methods: {
             onSomeEvent() {
                 console.log('Communition:', msg);
+            },
+            goHome () {
+                //
+                this.$children[0].eat()
             }
         },
     }

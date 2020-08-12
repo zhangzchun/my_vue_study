@@ -2,6 +2,10 @@
     <div>
         <h3>child2</h3>
         <button @click="sendToChild1">给child1发送消息</button>
+        <!-- props 未声明 -->
+        <!--<p> {{ msg }}</p>-->
+        <!-- $attr -->
+        <p>{{$attrs.msg}}</p>
     </div>
 </template>
 
