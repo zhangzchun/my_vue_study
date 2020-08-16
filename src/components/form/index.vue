@@ -10,7 +10,7 @@
           </KFormItem>
           <!-- 密码 -->
           <KFormItem :label="'密码'" prop="password">
-              <KInput v-model="userInfo.password" placeholder="请输入密码"></KInput>
+              <KInput :type="password" v-model="userInfo.password" placeholder="请输入密码"></KInput>
           </KFormItem>
           <!-- 提交按钮 -->
           <KFormItem>
