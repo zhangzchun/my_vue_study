@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- v-bind="$attrs"展开$attrs -->
-        <input type="type" :value="value" @click="onInput" v-bind="$attrs">
+        <input :type="type" :value="value" @input="onInput" v-bind="$attrs">
     </div>
 </template>
 

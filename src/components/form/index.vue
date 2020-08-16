@@ -3,7 +3,7 @@
      <!--<ElementTest></ElementTest>-->
       <!-- kForm -->
       <!--KFormItem-->
-      <kForm :model="userInfo" :rules="rules" ref="loginForm">
+      <KForm :model="userInfo" :rules="rules" ref="loginForm">
           <!-- 用户名 -->
           <KFormItem :label="'用户名'" prop="username">
               <KInput v-model="userInfo.username" placeholder="请输入用户名"></KInput>
@@ -16,7 +16,7 @@
           <KFormItem>
               <button @click="login">登录</button>
           </KFormItem>
-      </kForm>
+      </KForm>
 
   </div>
 </template>
