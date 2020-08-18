@@ -1,5 +1,6 @@
 let Vue; // 引用构造函数，VueRouter中要使用
 
+// 1.实现一个插件：挂载$router
 class KVueRouter {
     constructor(options) {
         this.$options = options
@@ -21,6 +22,7 @@ KVueRouter.install = function(_Vue) {
             }
         }
     });
+    
 };
 
 export default KVueRouter
