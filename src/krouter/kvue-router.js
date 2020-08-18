@@ -4,6 +4,14 @@ let Vue; // 引用构造函数，VueRouter中要使用
 class KVueRouter {
     constructor(options) {
         this.$options = options
+        console.log(this.$options);
+
+        this.current = '/';
+        // 监控url变化
+        window.addEventListener('hashchange', () => {
+            console.log(window.location.hash);
+            this.current = window.location.hash.slice(1)
+        });
     }
 }
 
@@ -22,7 +30,41 @@ KVueRouter.install = function(_Vue) {
             }
         }
     });
-    
+
+    // 任务2：实现两个全局组件router-link和router-view
+    Vue.component('router-link',{
+        props: {
+            to: {
+                type: String,
+                required: true
+            },
+        },
+        // template:'' // template or render function not defined.
+        render(h) {
+            // <a href="#/about">abc</a>
+            // <router-link to="/about">xxx</router-link>
+            // h(tag, data, children)
+            console.log(this.$slots);
+            return h('a', { attrs: { href: '#' + this.to } }, this.$slots.default)
+            // return <a href={'#' + this.to}>{this.$slots.default}</a>
+        }
+    });
+
+    Vue.component('router-view',{
+        render(h) {
+            // return h('div','router-view')
+            // 获取path对应的 component
+            let component = null;
+            this.$router.$options.routes.forEach(route =>{
+
+                if (route.path == this.$router.current) {
+
+                    component = route.component
+                }
+            });
+            return h(component)
+        }
+    });
 };
 
 export default KVueRouter
