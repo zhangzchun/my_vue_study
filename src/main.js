@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import './plugins/element.js'
 import create from './utils/create'
+import router from './router'
 
 Vue.config.productionTip = false
 
@@ -10,6 +11,8 @@ Vue.prototype.$bus = new Vue()
 // Vue.prototype.$create = create
 Vue.use(create)
 
+// 3. 挂载router实例，why ？
 new Vue({
-  render: h => h(App),
+  router,
+  render: h => h(App)
 }).$mount('#app')
