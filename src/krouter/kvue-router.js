@@ -13,7 +13,14 @@ class KVueRouter {
         Vue.util.defineReactive(this, 'current', '/');
         // 监控url变化
         window.addEventListener('hashchange', this.onHashChange.bind(this));
-        window.addEventListener('load', this.onHashChange.bind(this))
+        window.addEventListener('load', this.onHashChange.bind(this));
+
+        // 创建一个路由映射表
+        this.routeMap = {};
+        options.routes.forEach(route => {
+            this.routeMap[route.path] = route
+        })
+
     }
 
     // 方法提取
@@ -60,16 +67,23 @@ KVueRouter.install = function(_Vue) {
 
     Vue.component('router-view',{
         render(h) {
+            // 问题 ？
+            /*
             // return h('div','router-view')
             // 获取path对应的 component
             let component = null;
             this.$router.$options.routes.forEach(route =>{
-
                 if (route.path == this.$router.current) {
-
                     component = route.component
                 }
             });
+            return h(component)
+            */
+            // 改用路由映射表 routerMap
+            const {routeMap, current} = this.$router; // 解构
+            console.log(routeMap,current);
+
+            const component = routeMap[current].component || null;
             return h(component)
         }
     });
