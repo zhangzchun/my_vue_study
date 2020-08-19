@@ -1,3 +1,6 @@
+import View from './krouter-view'
+import Link from './krouter-link'
+
 let Vue; // 引用构造函数，VueRouter中要使用
 
 // 1.实现一个插件：挂载$router
@@ -47,46 +50,9 @@ KVueRouter.install = function(_Vue) {
     });
 
     // 任务2：实现两个全局组件router-link和router-view
-    Vue.component('router-link',{
-        props: {
-            to: {
-                type: String,
-                required: true
-            },
-        },
-        // template:'' // template or render function not defined.
-        render(h) {
-            // <a href="#/about">abc</a>
-            // <router-link to="/about">xxx</router-link>
-            // h(tag, data, children)
-            console.log(this.$slots);
-            return h('a', { attrs: { href: '#' + this.to } }, this.$slots.default)
-            // return <a href={'#' + this.to}>{this.$slots.default}</a>
-        }
-    });
+    Vue.component('router-link',Link);
 
-    Vue.component('router-view',{
-        render(h) {
-            // 问题 ？
-            /*
-            // return h('div','router-view')
-            // 获取path对应的 component
-            let component = null;
-            this.$router.$options.routes.forEach(route =>{
-                if (route.path == this.$router.current) {
-                    component = route.component
-                }
-            });
-            return h(component)
-            */
-            // 改用路由映射表 routerMap
-            const {routeMap, current} = this.$router; // 解构
-            console.log(routeMap,current);
-
-            const component = routeMap[current].component || null;
-            return h(component)
-        }
-    });
+    Vue.component('router-view',View);
 };
 
 export default KVueRouter
