@@ -6,12 +6,20 @@ class KVueRouter {
         this.$options = options
         console.log(this.$options);
 
-        this.current = '/';
+        // this.current = '/';
+        // 需要创建响应式的current属性
+        // 利用Vue提供的defineReactive做响应化
+        // 这样将来current变化的时候，依赖的组件会重新render
+        Vue.util.defineReactive(this, 'current', '/');
         // 监控url变化
-        window.addEventListener('hashchange', () => {
-            console.log(window.location.hash);
-            this.current = window.location.hash.slice(1)
-        });
+        window.addEventListener('hashchange', this.onHashChange.bind(this));
+        window.addEventListener('load', this.onHashChange.bind(this))
+    }
+
+    // 方法提取
+    onHashChange() {
+        console.log(window.location.hash);
+        this.current = window.location.hash.slice(1)
     }
 }
 
