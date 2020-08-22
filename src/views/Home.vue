@@ -7,9 +7,10 @@
       <!--<communication></communication>-->
       <!--<slot-example></slot-example>-->
       <form-example></form-example>
-      <p @click="$store.commit('clean')">count:{{$store.state.count}}</p>
-      <p @click="$store.dispatch('add')">async count:{{$store.state.count}}</p>
-      <p>double count:{{$store.getters.doubleCount}}</p>
+      <!--<p @click="$store.commit('clean')">count:{{$store.state.count}}</p>-->
+      <p @click="$store.commit('add')">count:{{$store.state.count}}</p>
+      <p @click="$store.dispatch('clean')">async count:{{$store.state.count}}</p>
+      <!--<p>double count:{{$store.getters.doubleCount}}</p>-->
   </div>
 </template>
 
