@@ -6,13 +6,31 @@ class Store {
         this._mutations = options.mutations;
         this._actions = options.actions;
 
-        this.state  = new Vue({
-            data:options.state
-        });
         // 响应化处理state
+        // this.state = new Vue({
+        //   data: options.state
+        // })
+        this._vm = new Vue({
+            data: {
+                // 加两个$，Vue不做代理
+                $$state: options.state
+            }
+        })
         // 绑定commit、dispatch的上下文问store实例
         this.commit = this.commit.bind(this)
         this.dispatch = this.dispatch.bind(this)
+    }
+
+    // 存取器， store.state
+    get state() {
+        console.log(this._vm);
+
+        return this._vm._data.$$state
+    }
+
+    set state(v) {
+        console.error('你造吗？你这样不好！');
+
     }
 
     // store.commit('add', 1)
