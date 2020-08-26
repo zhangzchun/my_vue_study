@@ -27,7 +27,10 @@
             // communication,
             // SlotExample,
             FormExample
-        }
+        },
+        // created () {
+        //   this.$store.state = {};
+        // },
     }
 </script>
 
