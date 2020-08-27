@@ -17,6 +17,8 @@ function defineReactive(obj,key,val) {
         set(newVal) {
             if (newVal != val) {
                 console.log("set: "+ key +": "+newVal);
+                // 如果传入的newVal依然是obj，需要做响应化处理
+                observe(newVal)
                 val = newVal;
             }
         }
@@ -52,6 +54,11 @@ obj.foo = 'fooooooooooooooo'
 obj.bar
 obj.bar = 'barrrrrrrrrrrrrr'
 // obj.baz.a = 10 // no ok
+/* -- 添加遍历递归可解决 -- */
 /* 2------ */
+
+/* 3------ */
+obj.baz = {a:100}
+obj.baz.a = 100000
 
 
