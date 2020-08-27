@@ -36,6 +36,10 @@ function observe(obj) {
     })
 }
 
+/* 4------ */
+function set(obj,key,val) {
+    defineReactive(obj,key,val)
+}
 /*
 * 不需要*/
 /*
@@ -60,5 +64,14 @@ obj.bar = 'barrrrrrrrrrrrrr'
 /* 3------ */
 obj.baz = {a:100}
 obj.baz.a = 100000
+
+/* 4------ */
+// obj.dong = 'dong'
+set(obj, 'dong', 'dong');
+
+// Object.defineProperty()对数组无效
+// 分析：改变数组方法只有7个
+// 解决方案：替换数组实例的原型方法，让他们在修改数组同时还可以通知更新
+obj.arr.push(4)
 
 
