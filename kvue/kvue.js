@@ -29,6 +29,21 @@ function observe(obj) {
 
 }
 
+// 代理函数，方便用户直接访问$data中的数据
+function proxy(vm, sourceKey) {
+    // vm[sourceKey]就是vm[$data]
+    // 将$data中的key代理到vm属性中
+    Object.keys(vm[sourceKey]).forEach(key => {
+        Object.defineProperty(vm,key,{
+            get() {
+                return vm[sourceKey][key]
+            },
+            set(newVal) {
+                vm[sourceKey][key] = newVal;
+            }
+        })
+    });
+}
 
 // 创建kVue 函数
 class KVue {
@@ -40,6 +55,9 @@ class KVue {
 
         // 响应化处理
         observe(this.$data)
+
+        // 代理
+        proxy(this, '$data')
 
 
     }
