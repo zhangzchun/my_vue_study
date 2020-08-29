@@ -54,10 +54,13 @@ class KVue {
         this.$data = options.data;
 
         // 响应化处理
-        observe(this.$data)
+        observe(this.$data);
 
         // 代理
-        proxy(this, '$data')
+        proxy(this, '$data');
+
+        // 创建编译器
+        new Compiler(options.el, this);
 
 
     }
