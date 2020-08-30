@@ -24,8 +24,8 @@ class Compiler {
         Array.from(childNodes).forEach(node => {
             // 判断是否是元素
             if (this.isElement(node)) {
-                console.log("编译元素" + node.nodeName);
-
+                // console.log("编译元素" + node.nodeName);
+                this.compileElement(node);
             } else if (this.isInter(node)) {
                 console.log("编译插值绑定" + node.textContent);
                 this.compileText(node);
@@ -53,4 +53,34 @@ class Compiler {
         node.textContent= this.$vm[RegExp.$1]
     }
 
+    // 元素编译
+    compileElement(node) {
+        // 节点是元素
+        // 遍历其属性列表
+        const nodeAttrs = node.attributes;
+        Array.from(nodeAttrs).forEach(attr => {
+            // 规定：指令以 k-xx ="oo" 定义
+            const attrName = attr.name;
+            const exp = attr.value;
+            if (this.isDirective(attrName)) {
+                const dir = attrName.substring(2);
+                // 执行指令
+                this[dir] && this[dir](node,exp)
+            }
+        })
+    }
+
+    isDirective(attr) {
+        return attr.indexOf('k-') === 0
+    }
+
+    // k-text
+    text(node,exp) {
+        node.textContent = this.$vm[exp]
+    }
+
+    // k-html
+    html(node,exp) {
+        node.innerHTML = this.$vm[exp]
+    }
 }
