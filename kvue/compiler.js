@@ -60,7 +60,7 @@ class Compiler {
         // 遍历其属性列表
         const nodeAttrs = node.attributes;
         Array.from(nodeAttrs).forEach(attr => {
-            // 规定：指令以 k-xx ="oo" 定义
+            // 规定：指令以 k-xx ="oo" 定义 k-text="counter"
             const attrName = attr.name;
             const exp = attr.value;
             if (this.isDirective(attrName)) {
@@ -75,12 +75,16 @@ class Compiler {
         return attr.indexOf('k-') === 0
     }
 
-    // 更新函数作用:
-    // 初始化
+    // 更新函数作用：
+    // 1.初始化
+    // 2.创建Watcher实例
     update(node,exp,dir) {
+        // 初始化
+        // 指令对应更新函数xxUpdater
         const fn =this[dir+"Updater"];
         fn && fn(node,this.$vm[exp]);
 
+        // 更新处理，封装一个更新函数，可以更新对应dom元素
         new Watcher(this.$vm,exp,function (val) {
             fn && fn(node,val)
         })

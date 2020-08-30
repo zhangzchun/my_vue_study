@@ -14,6 +14,9 @@ function defineReactive(obj,key,val) {
                 // 如果传入的newVal依然是obj，需要做响应化处理
                 observe(newVal)
                 val = newVal;
+
+                // 通知更新
+                watchers.forEach(w =>w.update())
             }
         }
     })
@@ -34,6 +37,7 @@ function proxy(vm, sourceKey) {
     // vm[sourceKey]就是vm[$data]
     // 将$data中的key代理到vm属性中
     Object.keys(vm[sourceKey]).forEach(key => {
+        // 将$data中的key代理到vm属性中
         Object.defineProperty(vm,key,{
             get() {
                 return vm[sourceKey][key]
@@ -83,9 +87,10 @@ class Observer {
         })
     }
 
+  // 数组数据响应化，待补充
 }
 
-
+// 观察者:保存更新函数，值发生变化调用更新函数
 const watchers = []
 class Watcher {
     constructor(vm,key,updateFn) {
