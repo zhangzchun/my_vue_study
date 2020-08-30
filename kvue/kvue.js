@@ -62,11 +62,10 @@ class KVue {
         // 创建编译器
         new Compiler(options.el, this);
 
-
     }
 }
 
-
+// 根据对象类型决定如何做响应化
 class Observer {
     constructor(value) {
         this.value = value;
@@ -84,4 +83,21 @@ class Observer {
         })
     }
 
+}
+
+
+const watchers = []
+class Watcher {
+    constructor(vm,key,updateFn) {
+        this.vm = vm;
+        this.key = key;
+        this.updateFn = updateFn
+
+        watchers.push(this)
+
+    }
+
+    update() {
+        this.updateFn.call(this.vm, this.vm[this.key])
+    }
 }

@@ -50,7 +50,8 @@ class Compiler {
 
     compileText(node) {
 
-        node.textContent= this.$vm[RegExp.$1]
+        node.textContent= this.$vm[RegExp.$1];
+        this.update(node,RegExp.$1,'text');
     }
 
     // 元素编译
@@ -74,13 +75,34 @@ class Compiler {
         return attr.indexOf('k-') === 0
     }
 
+    // 更新函数作用:
+    // 初始化
+    update(node,exp,dir) {
+        const fn =this[dir+"Updater"];
+        fn && fn(node,this.$vm[exp]);
+
+        new Watcher(this.$vm,exp,function (val) {
+            fn && fn(node,val)
+        })
+    }
+
+    textUpdater(node,value) {
+        node.textContent = value;
+    }
+
+    htmlUpdater(node,value) {
+        node.innerHTML = value
+    }
+
     // k-text
     text(node,exp) {
-        node.textContent = this.$vm[exp]
+        // node.textContent = this.$vm[exp]
+        this.update(node,exp,'text')
     }
 
     // k-html
     html(node,exp) {
-        node.innerHTML = this.$vm[exp]
+        // node.innerHTML = this.$vm[exp]
+        this.update(node,exp,'html')
     }
 }
