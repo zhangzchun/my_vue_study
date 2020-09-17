@@ -4,6 +4,20 @@ import Notice from '@/components/Notice.vue'
 function create(Component, props) {
     // 组件构造函数如何获取？
     // 1.Vue.extend()
+    const Ctor = Vue.extend(Component);
+    // 创建组件实例
+    const comp = new Ctor({propsData:props});
+    comp.$mount();
+    document.body.appendChild(comp.$el);
+    comp.remove = function() {
+        document.body.removeChild(comp.$el)
+        comp.$destroy()
+    }
+
+    /**
+     *  2 render
+     * */
+    /*
     // 2.render
     const vm = new Vue({
         // h是createElement, 返回VNode，是虚拟dom
@@ -21,6 +35,7 @@ function create(Component, props) {
         document.body.removeChild(vm.$el)
         vm.$destroy()
     }
+    */
 
     return comp
 
