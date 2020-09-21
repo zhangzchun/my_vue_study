@@ -5,6 +5,26 @@ class Store {
     constructor (options){
         this._mutations = options.mutations;
         this._actions = options.actions;
+        this._wrappedGetters = options.getters;
+
+        // 定义computed 选项
+        const computed = {}
+        this.getters = {}
+        // doubleCounter(state){}
+        const store = this;
+        Object.keys(this._wrappedGetters).forEach(key => {
+            // 获取用户定义的getter
+            const fn = store._wrappedGetters[key]
+            // 转换为computed 可以使用无参数形式
+            computed[key] = function () {
+                return fn(store.state)
+            }
+            // 为 getters 定义只读属性
+            Object.defineProperty(store.getters, key, {
+                get:() => store._vm[key]
+            })
+        });
+
 
         // 响应化处理state
         // this.state = new Vue({
@@ -14,7 +34,8 @@ class Store {
             data: {
                 // 加两个$，Vue不做代理
                 $$state: options.state
-            }
+            },
+            computed
         })
         // 绑定commit、dispatch的上下文问store实例
         this.commit = this.commit.bind(this)
