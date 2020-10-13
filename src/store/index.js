@@ -1,32 +1,36 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import user from './user';
+import permission from './permission';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {
-        count: 0
+  state: {
+    counter: 0
+  },
+  getters: {
+    doubleCounter(state) {
+      return state.counter * 2
     },
-    getters: {
-        doubleCount(state) {
-            return state.count * 2
-        }
-    },
-    mutations: {
-        add(state) {
-            state.count++
-            // this.state
-        },
-        clean (state) {
-            state.count = 0
-        }
-    },
-    actions: {
-        add({commit}) {
-            setTimeout(() => {
-                commit('add')
-            }, 1000);
-        }
-    },
-    modules: {}
+    roles: state => state.user.roles,
+    hasRoles: state => state.user.roles && state.user.roles.length > 0,
+    permission_routes: state => state.permission.routes
+  },
+  mutations: {
+    add(state) {
+      state.counter++
+      // this.state
+    }
+  },
+  actions: {
+    add({ commit }) {
+      setTimeout(() => {
+        commit('add')
+      }, 1000);
+    }
+  },
+  modules: {
+    user, permission
+  }
 })

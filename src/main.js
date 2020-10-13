@@ -10,8 +10,11 @@ import store from './store'
 // import store from './kstore'
 
 import '@/icons'
-Vue.config.productionTip = false
+import './permission'
+import vPermission from "./directives/permission";
 
+Vue.directive("permission", vPermission);
+Vue.config.productionTip = false
 // 事件总线
 Vue.prototype.$bus = new Vue()
 // Vue.prototype.$create = create
