@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import ElementTest from "@/components/form/ElementTest.vue";
+// import ElementTest from "@/components/form/ElementTest.vue";
 import KInput from "@/components/form/KInput.vue";
 import KFormItem from "@/components/form/KFormItem.vue";
 import KForm from "@/components/form/KForm.vue";
@@ -41,15 +41,33 @@ export default {
     };
   },
   components: {
-    ElementTest,
+    // ElementTest,
     KInput,
     KFormItem,
     KForm
   },
-  methods: {
+    methods: {
+        login () {
+            this.$refs["loginForm"].validate(valid => {
+                console.log(valid);
+                const notice = this.$notice({
+                    title: "输入校验:社会你杨哥喊你来搬砖",
+                    message: valid ? "请求登录!" : "校验失败!",
+                    duration: 2000
+                });
+                notice.show();
+                /*if (valid) {
+                    alert("submit");
+                } else {
+                    console.log("error submit!");
+                    return false;
+                }*/
+            });
+        }
+    /*
     login() {
       this.$refs["loginForm"].validate(valid => {
-        const notice = this.$notice({
+        const notice = this.$create(Notice, {
           title: "社会你杨哥喊你来搬砖",
           message: valid ? "请求登录!" : "校验失败!",
           duration: 2000
@@ -63,6 +81,7 @@ export default {
         // }
       });
     }
+    */
   }
 };
 </script>
