@@ -24,7 +24,7 @@
             Child1, Child2
         },
         methods: {
-            onSomeEvent() {
+            onSomeEvent(msg) {
                 console.log('Communition:', msg);
             },
             goHome () {
